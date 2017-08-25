@@ -10,17 +10,6 @@
         <md-card-content v-if="!username">
             <form novalidate @keyup.enter.prevent.stop="submit(student)">
 
-                <md-input-container :class="{'md-input-invalid': errors.has('First Name')}">
-                    <label>First Name</label>
-                    <md-input ref="first_name" v-model="student.first_name" v-validate="'required'" data-vv-name="First Name" required></md-input>
-                    <span class="md-error">{{errors.first("First Name")}}</span>
-                </md-input-container>
-
-                <md-input-container>
-                    <label>Middle Name</label>
-                    <md-input v-model="student.middle_name"></md-input>
-                </md-input-container>
-
                 <md-input-container :class="{'md-input-invalid': errors.has('Last Name')}">
                     <label>Last Name</label>
                     <md-input ref="last_name" v-model="student.last_name" v-validate="'required'" data-vv-name="Last Name" data-vv-rules="'required'" required></md-input>
@@ -37,12 +26,6 @@
                     <label>SSN (Last 4)</label>
                     <md-input ref="ssn" v-model="student.ssn" v-validate="'required|numeric|digits:4'" data-vv-name="SSN" type="password" required></md-input>
                     <span class="md-error">{{errors.first("SSN")}}</span>
-                </md-input-container>
-
-                <md-input-container :class="{'md-input-invalid': errors.has('Grade')}">
-                    <label>Grade</label>
-                    <md-input ref="grade" v-model="student.grade" v-validate="'required|numeric|min_value:1|max_value:12'" data-vv-name="Grade" required></md-input>
-                    <span class="md-error">{{errors.first("Grade")}}</span>
                 </md-input-container>
 
             </form>
@@ -97,12 +80,9 @@ export default {
     data: function() {
         return {
             student: {
-                first_name: null,
-                middle_name: null,
                 last_name: null,
                 birth_date: null,
-                ssn: null,
-                grade: null
+                ssn: null
             },
             error: null,
             username: null,
@@ -111,7 +91,7 @@ export default {
     },
     computed: {
         valid: function() {
-            return this.errors.any() || this.student.first_name == null || this.student.last_name == null || this.student.birth_date == null || this.student.ssn == null || this.student.grade == null;
+            return this.errors.any() || this.student.last_name == null || this.student.birth_date == null || this.student.ssn == null;
         }
     },
     methods: {
@@ -130,12 +110,9 @@ export default {
 
             var d = moment(student.birth_date, "MM/DD/YYYY");
             var s = {
-                "first-name": student.first_name,
-                "middle-name": student.middle_name,
                 "last-name": student.last_name,
                 "birth-date": d.format("YYYY-MM-DD"),
-                "ssn": student.ssn,
-                "grade": student.grade
+                "ssn": student.ssn
             };
 
             var promise = api.requestCredentials(s);
@@ -164,7 +141,6 @@ export default {
         this.$nextTick(function() {
             new Cleave(this.$refs.birth_date.$el, {date: true, datePattern: ["m", "d", "Y"]});
             new Cleave(this.$refs.ssn.$el, {numbericOnly: true, blocks: [4]});
-            new Cleave(this.$refs.grade.$el, {numbericOnly: true, blocks: [2]});
         });
     }
 };
