@@ -105,8 +105,8 @@ export default {
             window.close();
         },
         update_progress: function() {
-            // get to 100 in 5 seconds
-            this.button_progress += 3;
+            // get to 100 in 10 seconds
+            this.button_progress += 1.5;
 
             if (this.button_progress >= 100) {
                 this.button_timeout = false;
