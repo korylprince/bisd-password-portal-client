@@ -84,6 +84,7 @@ export default {
                 birth_date: null,
                 ssn: null
             },
+            button_timeout: false,
             error: null,
             username: null,
             password: null
@@ -91,7 +92,7 @@ export default {
     },
     computed: {
         valid: function() {
-            return this.errors.any() || this.student.last_name == null || this.student.birth_date == null || this.student.ssn == null;
+            return this.button_timeout || this.errors.any() || this.student.last_name == null || this.student.birth_date == null || this.student.ssn == null;
         }
     },
     methods: {
@@ -107,6 +108,11 @@ export default {
             if (this.errors.any()) {
                 return;
             }
+
+            this.button_timeout = true;
+            window.setTimeout(() => {
+                this.button_timeout = false;
+            }, 3000);
 
             var d = moment(student.birth_date, "MM/DD/YYYY");
             var s = {
