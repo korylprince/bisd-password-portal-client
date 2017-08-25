@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "BISD Password Portal",
+    "description": "A portal to lookup credentials",
+    "version": "1.0.0",
+    "icons": {
+        "16": "img/icon16.png",
+        "24": "img/icon24.png",
+        "32": "img/icon32.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    },
+    "app": {
+        "background": {
+            "scripts": ["js/background.js"]
+        }
+    },
+    "sandbox": {
+        "pages": ["index.html"]
+    }
+}
