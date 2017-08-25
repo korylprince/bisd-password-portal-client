@@ -12,7 +12,7 @@
 
                 <md-input-container :class="{'md-input-invalid': errors.has('Last Name')}">
                     <label>Last Name</label>
-                    <md-input ref="last_name" v-model="student.last_name" v-validate="'required'" data-vv-name="Last Name" data-vv-rules="'required'" required></md-input>
+                    <md-input ref="last_name" v-model.trim="student.last_name" v-validate="'required'" data-vv-name="Last Name" data-vv-rules="'required'" required></md-input>
                     <span class="md-error">{{errors.first("Last Name")}}</span>
                 </md-input-container>
 
