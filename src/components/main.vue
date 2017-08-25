@@ -15,6 +15,7 @@
                     <md-input ref="last_name" v-model.trim="student.last_name" v-validate="'required'" data-vv-name="Last Name" data-vv-rules="'required'" required></md-input>
                     <span class="md-error">{{errors.first("Last Name")}}</span>
                 </md-input-container>
+                <span class="input-note">Enter your full legal last name including any dashes, apostrophes, etc</span>
 
                 <md-input-container :class="{'md-input-invalid': errors.has('Birth Date')}">
                     <label>Birth Date</label>
@@ -53,7 +54,10 @@
 
         <md-card-actions>
             <md-button class="md-accent" @click="exit()">Exit</md-button>
-            <md-button class="md-primary" @click="submit(student)" :disabled="valid" v-if="!username">Submit</md-button>
+            <md-button id="submit" class="md-primary" @click="submit(student)" :disabled="valid" v-if="!username">
+                <span v-show="!button_timeout">Submit</span>
+                <md-spinner :md-progress="button_progress" :md-size="23" v-show="button_timeout"></md-spinner>
+            </md-button>
         </md-card-actions>
 
         <md-dialog ref="dialog">
@@ -85,6 +89,7 @@ export default {
                 ssn: null
             },
             button_timeout: false,
+            button_progress: 0,
             error: null,
             username: null,
             password: null
@@ -99,6 +104,19 @@ export default {
         exit: function() {
             window.close();
         },
+        update_progress: function() {
+            // get to 100 in 5 seconds
+            this.button_progress += 3;
+
+            if (this.button_progress >= 100) {
+                this.button_timeout = false;
+                return;
+            }
+
+            window.setTimeout(() => {
+                this.update_progress();
+            }, 150);
+        },
         submit: function(student) {
             this.error = null;
             this.username = null;
@@ -109,10 +127,13 @@ export default {
                 return;
             }
 
+            if (this.button_timeout === true) {
+                return;
+            }
+
             this.button_timeout = true;
-            window.setTimeout(() => {
-                this.button_timeout = false;
-            }, 3000);
+            this.button_progress = 0;
+            this.update_progress();
 
             var d = moment(student.birth_date, "MM/DD/YYYY");
             var s = {
@@ -158,4 +179,14 @@ export default {
     margin-bottom: 20px
     font-size: 0.9em
     color: #555
+
+#submit
+    display: relative
+
+    .md-spinner
+        position: absolute
+        top: 50%
+        left: 50%
+        margin-top: -11.5px
+        margin-left: -11.5px
 </style>
