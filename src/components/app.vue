@@ -74,6 +74,7 @@
                 <v-card-text v-if="dialog_user">
                     <strong>Student:</strong> {{dialog_user.first_name}} {{dialog_user.last_name}} <br />
                     <strong>Username:</strong> {{dialog_user.username}} <br />
+                    <strong>Email:</strong> {{dialog_user.username}}@bullardisd.net <br />
                     <strong>Password:</strong> {{dialog_user.password}}
                 </v-card-text>
                 <v-card-text v-else>{{dialog_text}}</v-card-text>
