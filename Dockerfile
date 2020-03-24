@@ -11,7 +11,7 @@ WORKDIR /client
 
 RUN npm install
 
-ENV API_BASE="/students/api/2.0"
+ENV API_BASE="/api/2.0"
 
 RUN npm run build-prod
 
