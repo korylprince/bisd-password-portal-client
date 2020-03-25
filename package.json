@@ -1,6 +1,6 @@
 {
   "name": "bisd-password-portal-client",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "BISD Password Portal",
   "main": "dist/app.js",
   "repository": {
