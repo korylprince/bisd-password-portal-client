@@ -1,9 +1,9 @@
 <template>
-    <v-app id="app">
+    <v-app :style="{backgroundColor: $vuetify.breakpoint.xsOnly ? 'auto' : '#0d47a1'}">
         <v-content>
-            <v-container id="container" fluid :pa-0="$vuetify.breakpoint.xsOnly">
-                <v-row justify="center" align="center">
-                    <v-card width="100%" max-width="600px">
+            <v-container :pa-0="$vuetify.breakpoint.xsOnly" :fill-height="$vuetify.breakpoint.smAndUp">
+                <v-row no-gutters align="start" justify="center">
+                    <v-card id="card" width="100%" max-width="600px" :tile="$vuetify.breakpoint.xsOnly" :flat="$vuetify.breakpoint.xsOnly">
                         <v-card-title primary-title>
                             <div class="headline">BISD Password Portal</div>
                         </v-card-title>
@@ -147,10 +147,3 @@ export default {
     },
 }
 </script>
-<style lang="sass">
-#app
-    background-color: #0d47a1
-#container
-    display: flex
-    min-height: 100vh
-</style>
