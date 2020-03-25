@@ -10,7 +10,7 @@ const devConfig = {
         hot: true,
         stats: "minimal",
         proxy: {
-            "/students/api": {
+            "/api": {
                 target: process.env.API_SERVER,
                 secure: false,
                 changeOrigin: true,
